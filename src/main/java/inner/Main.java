@@ -1,18 +1,20 @@
-package main.java.inner;
+package inner;
 
-import javafx.util.Pair;
-
+import inner.entities.Pair;
+import inner.logic.ArrayLogic;
+import inner.logic.LinkedLogic;
+import inner.logic.MapLogic;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         if (cheekArgument(args)) {
-            List<Pair<Integer, String>> fistTable = loadingFromFile(args[0]);
-            List<Pair<Integer, String>> secondTable = loadingFromFile(args[1]);
+            List<Pair> fistTable = loadingFromFile(args[0]);
+            List<Pair> secondTable = loadingFromFile(args[1]);
             System.out.println("-----------");
             ArrayLogic arrayLogic = new ArrayLogic(fistTable, secondTable);
             arrayLogic.showTable();
@@ -32,9 +34,9 @@ public class Main {
         return true;
     }
 
-    static List<Pair<Integer, String>> loadingFromFile(String path) {
+    static List<Pair> loadingFromFile(String path) {
         File file = new File(path);
-        List<Pair<Integer, String>> table = new ArrayList<>();
+        List<Pair> table = new ArrayList<>();
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -47,12 +49,12 @@ public class Main {
                     continue;
                 }
 
-                table.add(new Pair<>(Integer.parseInt(line.split(" ")[0]), line.split(" ")[1]));
+                table.add(new Pair(Integer.parseInt(line.split(" ")[0]), line.split(" ")[1]));
             }
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
-
+        Collections.sort(table);
         return table;
     }
 }
