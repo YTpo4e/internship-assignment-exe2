@@ -3,7 +3,7 @@ package inner.entities;
 public class Pair implements Comparable<Pair> {
     private Integer key;
     private String value;
-    private short f ;
+
     public Pair(int key, String value) {
         this.key = key;
         this.value = value;
